@@ -14,16 +14,17 @@ prediction = []
 @app.route('/predict', methods=['GET', 'POST'])
 def process():
     if request.method == 'POST':
-        file = request.files['img']
+        file = request.files['image']
         print('file_name:' + file.name)
         file.save(secure_filename(file.filename))
         start_time = time.time()
         try:
-            output = IR().predict(secure_filename(file.filename))
-            output.append(["Time spent", "\nProcessing time: {:.3f}s".format(time.time() - start_time)])
+            # output = IR().predict(secure_filename(file.filename))
+            # output.append(["Time spent", "\nProcessing time: {:.3f}s".format(time.time() - start_time)])
+            output = "OK"
             return render_template('result.html', output=output)
         except:
-            return render_template('result.html', output=["Invalid image!"])
+            return render_template('result.html', output="Not OK")
 
 
 if __name__ == '__main__':
