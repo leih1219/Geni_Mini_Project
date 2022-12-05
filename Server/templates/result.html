@@ -9,14 +9,14 @@
     Prediction of the image:
 </h1>
 <hr>
-<p>{{ output|length }} Titles</p>
 <ul class="prediction-list">
-    {% for line in output %}
-    <li>{{ line[0] }} - {{ line[1] }}
-    </li>
-    {% endfor %}
+<!--    {% for line in output %}-->
+<!--    <li>{{ line[0] }} - {{ line[1] }}-->
+<!--    </li>-->
+<!--    {% endfor %}-->
+    {{ output }}
 </ul>
-<form action="{{ url_for('index')}}">
+<form action="http://192.122.236.105:5000/">
     <input type="submit" name="back" value="Back" onclick="return confirm('Do you want to try again?')">
 </form>
 </body>
