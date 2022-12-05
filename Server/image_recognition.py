@@ -23,8 +23,9 @@ class Img_reco():
     # try: urllib.URLopener().retrieve(url, filename)
     # except: urllib.request.urlretrieve(url, filename)
 
-    def predict(self, img):
-        input_tensor = self.preprocess(img)
+    def predict(self, filename):
+        input_image = Image.open(filename)
+        input_tensor = self.preprocess(input_image)
         input_batch = input_tensor.unsqueeze(0)  # create a mini-batch as expected by the model
 
         # move the input and model to GPU for speed if available
@@ -49,6 +50,6 @@ class Img_reco():
 if __name__ == '__main__':
     Img_reco = Img_reco()
     filename = "1.jpg"
-    input_image = Image.open(filename)
-    result = Img_reco.predict(input_image)
+    # input_image = Image.open(filename)
+    result = Img_reco.predict(filename)
     print(result)
