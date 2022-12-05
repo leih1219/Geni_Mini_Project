@@ -1,55 +1,44 @@
-import torch
-from PIL import Image
-from torchvision import transforms
+import os
+import json
+import socket
+from flask import Flask
+from werkzeug.datastructures import FileStorage
+from flask import render_template, request
+import time
+import requests
+from werkzeug.utils import secure_filename
+from flask import request, redirect, url_for, Flask, render_template, flash
+
+max_len = 1024
+
+app = Flask(__name__)
 
 
-class Img_reco():
-    def __init__(self):
-        self.model = torch.hub.load('pytorch/vision:v0.10.0', 'googlenet', pretrained=True)
-        self.model.eval()
-        self.preprocess = transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ])
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-        with open("Server/imagenet_classes.txt", "r") as f:
-            categories = [s.strip() for s in f.readlines()]
-        self.categories = categories
 
-    # import urllib
-    # url, filename = ("https://github.com/pytorch/hub/raw/master/images/dog.jpg", "dog.jpg")
-    # try: urllib.URLopener().retrieve(url, filename)
-    # except: urllib.request.urlretrieve(url, filename)
+@app.route('/submit', methods=['GET', 'POST'])
+def sendFiles():
+    if request.method == 'POST':
+        f = request.files['file']
+        f.save(secure_filename(f.filename))
+        # file = request.files['image']
+        print('file_name:' + f.name)
+        # file.save(secure_filename(file.filename))
+        remote_IP = '192.122.236.106'
+        # remote_IP = 'http://127.0.0.1'
+        remote_PORT = '5000'
+        remote_Sub = 'predict'
+        remote_add = 'http://' + remote_IP + ':' + remote_PORT + '/' + remote_Sub
 
-    def predict(self, filename):
-        input_image = Image.open(filename)
-        input_tensor = self.preprocess(input_image)
-        input_batch = input_tensor.unsqueeze(0)  # create a mini-batch as expected by the model
+        files = {'image': open(secure_filename(f.filename), 'rb')}
+        start_time = time.time()
+        r = requests.post(remote_add, files=files)
 
-        # move the input and model to GPU for speed if available
-        if torch.cuda.is_available():
-            input_batch = input_batch.to('cuda')
-            self.model.to('cuda')
-
-        with torch.no_grad():
-            output = self.model(input_batch)
-
-        # The output has unnormalized scores. To get probabilities, you can run a softmax on it.
-        probabilities = torch.nn.functional.softmax(output[0], dim=0)
-
-        top5_prob, top5_catid = torch.topk(probabilities, 5)
-        prediction = []
-        for i in range(top5_prob.size(0)):
-            print(self.categories[top5_catid[i]], top5_prob[i].item())
-            prediction.append([self.categories[top5_catid[i]], top5_prob[i].item()])
-        return prediction
+    return r.text
 
 
 if __name__ == '__main__':
-    Img_reco = Img_reco()
-    filename = "1.jpg"
-    # input_image = Image.open(filename)
-    result = Img_reco.predict(filename)
-    print(result)
+    app.run(debug=True, host='0.0.0.0')
