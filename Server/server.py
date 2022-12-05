@@ -21,9 +21,9 @@ def process():
         try:
             output = IR().predict(secure_filename(file.filename))
             output.append(["Time spent", "\nProcessing time: {:.3f}s".format(time.time() - start_time)])
-            return render_template('/result.html', output=output)
+            return render_template('result.html', output=output)
         except:
-            return render_template('/result.html', output=["Invalid image!"])
+            return render_template('result.html', output=["Invalid image!"])
 
 
 if __name__ == '__main__':
