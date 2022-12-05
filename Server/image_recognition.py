@@ -22,7 +22,7 @@ def index():
 @app.route('/submit', methods=['GET', 'POST'])
 def sendFiles():
     if request.method == 'POST':
-        f = request.files['file']
+        f = request.files['img']
         f.save(secure_filename(f.filename))
         # file = request.files['image']
         print('file_name:' + f.name)
