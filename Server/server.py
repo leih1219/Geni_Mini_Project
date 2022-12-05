@@ -19,9 +19,9 @@ def process():
         file.save(secure_filename(file.filename))
         start_time = time.time()
         try:
-            # output = IR().predict(secure_filename(file.filename))
+            output = IR().predict(secure_filename(file.filename))
             # output.append(["Time spent", "\nProcessing time: {:.3f}s".format(time.time() - start_time)])
-            output = "OK"
+            output = output[0][0]
             return render_template('result.html', output=output)
         except:
             return render_template('result.html', output="Not OK")
