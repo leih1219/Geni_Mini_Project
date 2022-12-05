@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+</head>
+<body>
+<h1>
+    Prediction of the image:
+</h1>
+<hr>
+<p>{{ output|length }} Titles</p>
+<ul class="prediction-list">
+    {% for line in output %}
+    <li>{{ line[0] }} - {{ line[1] }}
+    </li>
+    {% endfor %}
+</ul>
+<form action="{{ url_for('index')}}">
+    <input type="submit" name="back" value="Back" onclick="return confirm('Do you want to try again?')">
+</form>
+</body>
+</html>
