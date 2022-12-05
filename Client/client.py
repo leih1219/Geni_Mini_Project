@@ -19,17 +19,17 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/submit', methods=['POST', 'GET'])
+@app.route('/submit', methods=['GET', 'POST'])
 def sendFiles():
     if request.method == 'POST':
-        file = request.files['img']
+        file = request.files['file']
         print('file_name:' + file.name)
         file.save(secure_filename(file.filename))
         remote_IP = '192.122.236.106'
-#         remote_IP = 'http://127.0.0.1'
+        # remote_IP = 'http://127.0.0.1'
         remote_PORT = '5000'
         remote_Sub = 'predict'
-        remote_add = remote_IP + ':' + remote_PORT + '/' + remote_Sub
+        remote_add = 'http://' + remote_IP + ':' + remote_PORT + '/' + remote_Sub
 
         files = {'image': open(secure_filename(file.filename), 'rb')}
         start_time = time.time()
