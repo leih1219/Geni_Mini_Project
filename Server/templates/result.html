@@ -9,13 +9,16 @@
     Prediction of the image:
 </h1>
 <hr>
-<ul class="prediction-list">
-<!--    {% for line in output %}-->
-<!--    <li>{{ line[0] }} - {{ line[1] }}-->
-<!--    </li>-->
-<!--    {% endfor %}-->
-    {{ output }}
-</ul>
+<h3> Prediction</h3>
+<hr>
+<p style="color:#7B68EE">1.&nbsp;Type:&nbsp;{{ key1 }} &nbsp;&nbsp;&nbsp;&nbsp; Possibility:&nbsp;{{ value1 }}</p>
+<p style="color:#7B68EE">2.&nbsp;Type:&nbsp;{{ key2 }} &nbsp;&nbsp;&nbsp;&nbsp; Possibility:&nbsp;{{ value2 }}</p>
+<p style="color:#7B68EE">3.&nbsp;Type:&nbsp;{{ key3 }} &nbsp;&nbsp;&nbsp;&nbsp; Possibility:&nbsp;{{ value3 }}</p>
+<p style="color:#7B68EE">4.&nbsp;Type:&nbsp;{{ key4 }} &nbsp;&nbsp;&nbsp;&nbsp; Possibility:&nbsp;{{ value4 }}</p>
+<p style="color:#7B68EE">5.&nbsp;Type:&nbsp;{{ key5 }} &nbsp;&nbsp;&nbsp;&nbsp; Possibility:&nbsp;{{ value5 }}</p>
+<h3> Time Spent</h3>
+<hr>
+<p>Processing time:&nbsp;{{ time }}</p>
 <form action="http://192.122.236.105:5000/">
     <input type="submit" name="back" value="Back" onclick="return confirm('Do you want to try again?')">
 </form>
