@@ -20,14 +20,14 @@ def process():
         context = {
             'key1': output[0][0],
             'value1': output[0][1],
-            'key2': output[0][0],
-            'value2': output[0][1],
-            'key3': output[0][0],
-            'value3': output[0][1],
-            'key4': output[0][0],
-            'value4': output[0][1],
-            'key5': output[0][0],
-            'value5': output[0][1],
+            'key2': output[1][0],
+            'value2': output[1][1],
+            'key3': output[2][0],
+            'value3': output[2][1],
+            'key4': output[3][0],
+            'value4': output[3][1],
+            'key5': output[4][0],
+            'value5': output[4][1],
             'time': time.time() - start_time
         }
         return render_template('result.html', **context)
