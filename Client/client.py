@@ -22,7 +22,7 @@ def index():
 @app.route('/submit', methods=['GET', 'POST'])
 def sendFiles():
     if request.method == 'POST':
-        file = request.files['file']
+        file = request.files['img']
         print('file_name:' + file.name)
         file.save(secure_filename(file.filename))
         remote_IP = '192.122.236.106'
