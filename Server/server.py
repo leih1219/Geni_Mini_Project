@@ -1,13 +1,11 @@
 from flask import Flask
 from flask import request, render_template
-import asyncio
 import time
 from werkzeug.utils import secure_filename
 from image_recognition import Img_reco as IR
 
 app = Flask(__name__)
 
-# curr_loop = asyncio.get_running_loop()
 prediction = []
 
 
@@ -18,13 +16,21 @@ def process():
         print('file_name:' + file.name)
         file.save(secure_filename(file.filename))
         start_time = time.time()
-        try:
-            output = IR().predict(secure_filename(file.filename))
-            # output.append(["Time spent", "\nProcessing time: {:.3f}s".format(time.time() - start_time)])
-            output = output[0][0]
-            return render_template('result.html', output=output)
-        except:
-            return render_template('result.html', output="Not OK")
+        output = IR().predict(secure_filename(file.filename))
+        context = {
+            'key1': output[0][0],
+            'value1': output[0][1],
+            'key2': output[0][0],
+            'value2': output[0][1],
+            'key3': output[0][0],
+            'value3': output[0][1],
+            'key4': output[0][0],
+            'value4': output[0][1],
+            'key5': output[0][0],
+            'value5': output[0][1],
+            'time': time.time() - start_time
+        }
+        return render_template('result.html', **context)
 
 
 if __name__ == '__main__':
