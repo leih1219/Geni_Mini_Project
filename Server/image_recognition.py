@@ -14,7 +14,7 @@ class Img_reco():
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
 
-        with open("Server/imagenet_classes.txt", "r") as f:
+        with open("imagenet_classes.txt", "r") as f:
             categories = [s.strip() for s in f.readlines()]
         self.categories = categories
 
