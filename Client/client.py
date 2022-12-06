@@ -25,7 +25,7 @@ def sendFiles():
         file = request.files['img']
         print('file_name:' + file.name)
         file.save(secure_filename(file.filename))
-        remote_IP = '192.122.236.106'
+        remote_IP = '192.122.236.111'
         # remote_IP = 'http://127.0.0.1'
         remote_PORT = '5000'
         remote_Sub = 'predict'
