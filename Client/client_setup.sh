@@ -9,5 +9,3 @@ pip install flask
 pip install requests
 
 git clone https://github.com/leih1219/Geni_Mini_Project.git
-
-cd Geni_Mini_Project/Client
