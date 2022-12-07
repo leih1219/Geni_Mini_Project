@@ -32,8 +32,9 @@ def sendFiles():
         remote_add = 'http://' + remote_IP + ':' + remote_PORT + '/' + remote_Sub
 
         files = {'image': open(secure_filename(file.filename), 'rb')}
-        start_time = time.time()
+        start = time.time()
         r = requests.post(remote_add, files=files)
+        print("Total time cost is: {:.3f}s".format(time.time() - start))
 
     return r.text
 
