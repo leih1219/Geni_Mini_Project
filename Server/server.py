@@ -15,7 +15,7 @@ def process():
         file = request.files['image']
         print('file_name:' + file.name)
         file.save(secure_filename(file.filename))
-        start_time = time.time()
+        start = time.time()
         output = IR().predict(secure_filename(file.filename))
         context = {
             'key1': output[0][0],
@@ -28,7 +28,7 @@ def process():
             'value4': output[3][1],
             'key5': output[4][0],
             'value5': output[4][1],
-            'time': time.time() - start_time
+            'process_time': "{:.3f}s".format(time.time() - start)
         }
         return render_template('result.html', **context)
 
